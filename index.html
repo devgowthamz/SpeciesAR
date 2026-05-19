@@ -46,15 +46,15 @@
             <a-light type="ambient" color="#FFF" intensity="0.5"></a-light>
             <a-light type="directional" color="#FFF" intensity="1.5" position="-1 2 1"></a-light>
             
-            <!-- 3D Model -->
-            <!-- Scale and position can be adjusted based on the actual model dimensions -->
-            <a-gltf-model 
-                src="#spsModel" 
-                rotation="0 0 0" 
-                position="0 0 0" 
-                scale="15 15 15"
-                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear;">
-            </a-gltf-model>
+            <!-- Wrapped in an entity to ensure scale is applied properly -->
+            <a-entity scale="20 20 20">
+                <a-gltf-model 
+                    src="#spsModel" 
+                    rotation="0 0 0" 
+                    position="0 0 0" 
+                    animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear;">
+                </a-gltf-model>
+            </a-entity>
             
         </a-entity>
     </a-scene>
