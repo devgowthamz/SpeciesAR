@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAR Experience - SPS1</title>
+    
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- A-Frame and MindAR Scripts -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+</head>
+<body>
+    
+    <!-- Custom UI Overlay -->
+    <div id="ui-container">
+        <div id="scanning-overlay">
+            <div class="scanner"></div>
+            <div class="content">
+                <h1>WebAR Experience</h1>
+                <p>Point your camera at the <strong>SPS1</strong> card to bring it to life.</p>
+                <div class="status-indicator">
+                    <span class="dot pulse"></span> Searching...
+                </div>
+            </div>
+        </div>
+        
+        <div id="found-overlay" class="hidden">
+            <div class="glass-panel">
+                <h2>Target Acquired</h2>
+                <p>Enjoy the 3D Experience!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- A-Frame Scene -->
+    <a-scene 
+        mindar-image="imageTargetSrc: ./sps1.mind; autoStart: true; filterMinCF: 0.0001; filterBeta: 0.001;" 
+        color-space="sRGB" 
+        renderer="colorManagement: true, physicallyCorrectLights" 
+        vr-mode-ui="enabled: false" 
+        device-orientation-permission-ui="enabled: false">
+        
+        <a-assets>
+            <a-asset-item id="spsModel" src="./sps1.glb"></a-asset-item>
+        </a-assets>
+
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+        <!-- Target Entity -->
+        <a-entity id="ar-target" mindar-image-target="targetIndex: 0">
+            
+            <!-- Lighting for the 3D Model -->
+            <a-light type="ambient" color="#FFF" intensity="0.5"></a-light>
+            <a-light type="directional" color="#FFF" intensity="1.5" position="-1 2 1"></a-light>
+            
+            <!-- 3D Model -->
+            <!-- Scale and position can be adjusted based on the actual model dimensions -->
+            <a-gltf-model 
+                src="#spsModel" 
+                rotation="0 0 0" 
+                position="0 0 0" 
+                scale="1 1 1"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear;">
+            </a-gltf-model>
+            
+        </a-entity>
+    </a-scene>
+
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
